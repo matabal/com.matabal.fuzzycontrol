@@ -1,8 +1,6 @@
 {
-  "name": "matabal.fuzzycontrol.Editor.Tests",
+  "name": "matabal.fuzzycontrol.Engine.Tests",
   "references": [
-    "matabal.fuzzycontrol.Core",
-    "matabal.fuzzycontrol.API",
     "matabal.fuzzycontrol.Engine"
   ],
   "optionalUnityReferences": [

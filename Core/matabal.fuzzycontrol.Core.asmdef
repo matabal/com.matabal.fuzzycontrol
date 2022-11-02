@@ -1,3 +1,7 @@
 {
-	"name": "matabal.fuzzycontrol.Core"
+	"name": "matabal.fuzzycontrol.Core",
+	"references": [
+    "matabal.fuzzycontrol.API",
+    "matabal.fuzzycontrol.Engine"
+  ]
 }

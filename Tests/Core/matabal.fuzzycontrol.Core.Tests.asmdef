@@ -1,0 +1,11 @@
+{
+	"name": "matabal.fuzzycontrol.Core.Tests",
+	"references": [
+    "matabal.fuzzycontrol.Core"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": []
+}
