@@ -1,13 +1,13 @@
 {
     "name": "com.matabal.fuzzycontrol",
-    "version": "1.2.3",
+    "version": "0.1.0",
     "displayName": "Fuzzy Control",
     "description": "Customizable fuzzy control unit builder for gameobjects and alike.",
     "unity": "2019.1",
     "unityRelease": "0b5",
-    "documentationUrl": "",
-    "changelogUrl": "",
-    "licensesUrl": "",
+    "documentationUrl": "https://github.com/matabal/com.matabal.fuzzycontrol/blob/main/README.md",
+    "changelogUrl": "https://github.com/matabal/com.matabal.fuzzycontrol/blob/main/CHANGELOG.md",
+    "licensesUrl": "https://github.com/matabal/com.matabal.fuzzycontrol/blob/main/LICENSE",
     "dependencies": { },
      "keywords": [
         "fuzzy",
