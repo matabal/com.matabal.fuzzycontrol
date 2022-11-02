@@ -2,7 +2,8 @@
   "name": "matabal.fuzzycontrol.Editor.Tests",
   "references": [
     "matabal.fuzzycontrol.Core",
-    "matabal.fuzzycontrol.API"
+    "matabal.fuzzycontrol.API",
+    "matabal.fuzzycontrol.Engine"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"
