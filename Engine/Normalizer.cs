@@ -11,12 +11,12 @@ namespace Engine
             this.max = max;
         }
 
-        public float normalize(float value)
+        public float Normalize(float value)
         {
             return (value - min) / (max - min);
         }
 
-        public float denormalize(float normalizedValue)
+        public float Denormalize(float normalizedValue)
         {
             return (normalizedValue * (max - min)) + min;
         }

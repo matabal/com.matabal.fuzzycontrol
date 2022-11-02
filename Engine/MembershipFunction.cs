@@ -2,7 +2,7 @@
 namespace Engine {
     public abstract class MembershipFunction
     {
-        public abstract float calculateDegree(float value);
+        public abstract float CalculateDegree(float value);
     }
 
     public class Triangular : MembershipFunction
@@ -18,7 +18,7 @@ namespace Engine {
             this.upperBound = upperBound;
         }
 
-        public override float calculateDegree(float value)
+        public override float CalculateDegree(float value)
         {
             return 0f;
         }
@@ -26,7 +26,20 @@ namespace Engine {
 
     public class Trapezoidal : MembershipFunction
     {
-        public override float calculateDegree(float value)
+        private float lowerBound;
+        private float lowerCenter;
+        private float upperCenter;
+        private float upperBound;
+
+        public Trapezoidal(float lowerBound, float lowerCenter, float upperCenter, float upperBound)
+        {
+            this.lowerBound = lowerBound;
+            this.lowerCenter = lowerCenter;
+            this.upperCenter = upperCenter;
+            this.upperBound = upperBound;
+        }
+
+        public override float CalculateDegree(float value)
         {
             return 0f;
         }
@@ -34,7 +47,18 @@ namespace Engine {
 
     public class Gaussian : MembershipFunction
     {
-        public override float calculateDegree(float value)
+        private float center;
+        private float width;
+        private float fuzzificationFactor;
+
+        public Gaussian(float center, float width, float fuzzificationFactor)
+        {
+            this.center = center;
+            this.width = width;
+            this.fuzzificationFactor = fuzzificationFactor;
+        }
+
+        public override float CalculateDegree(float value)
         {
             return 0f;
         }
