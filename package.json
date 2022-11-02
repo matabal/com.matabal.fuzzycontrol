@@ -1,0 +1,21 @@
+{
+    "name": "com.matabal.fuzzycontrol",
+    "version": "1.2.3",
+    "displayName": "Fuzzy Control",
+    "description": "Customizable fuzzy control unit builder for gameobjects and alike.",
+    "unity": "2019.1",
+    "unityRelease": "0b5",
+    "documentationUrl": "",
+    "changelogUrl": "",
+    "licensesUrl": "",
+    "dependencies": { },
+     "keywords": [
+        "fuzzy",
+        "control"
+      ],
+      "author": {
+        "name": "Mehmet Ata Bal",
+        "email": "mabal@tutanota.com",
+        "url": ""
+      }
+}
