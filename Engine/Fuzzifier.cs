@@ -1,6 +1,7 @@
 
 namespace Engine
 {
+    using Exceptions;
     public class Fuzzifier
     {
         private Variable inputVariable;
@@ -14,9 +15,21 @@ namespace Engine
             this.normalizer = normalizer;
         }
 
-        public Literal[] Fuzzify(float crispValue)
+        public Literal[] Fuzzify(CrispLiteral crispValue)
         {
-            return new Literal[0];
+            if (!crispValue.variable.Equals(inputVariable))
+                throw new MismatchingVariableException();
+
+
+            crispValue.value = normalizer.Normalize(crispValue.value);
+            Literal[] literals = new Literal[inputSets.Length];
+            int i = 0;
+            foreach (FuzzySet inpSet in inputSets)
+            {
+                literals[i] = inpSet.GetDegreeOfMembership(crispValue);
+                i++;
+            }
+            return literals;
         }
     }
 }

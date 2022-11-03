@@ -12,9 +12,10 @@ namespace Engine
             function = membershipFunction;
         }
 
-        public Literal GetDegreeOfMembership(float normalizedValue)
+        public Literal GetDegreeOfMembership(CrispLiteral normalizedValue)
         {
-            return new Literal(descriptor, function.CalculateDegree(normalizedValue));
+            float degree = function.CalculateDegree(normalizedValue.value);
+            return new Literal(descriptor, degree);
         }
     }
 }
