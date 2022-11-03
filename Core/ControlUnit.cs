@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using Engine;
 
 
@@ -10,6 +11,11 @@ namespace Core
         private InferenceEngine inferenceEngine;
         private Defuzzifier defuzzifier;
 
+        /* only for testing purposes */
+        public ControlUnit(Dictionary<Variable, Fuzzifier> fuzzifiers)
+        {
+            this.fuzzifiers = fuzzifiers;
+        }
 
         public ControlUnit(Dictionary<Variable, Fuzzifier> fuzzifiers, InferenceEngine inferenceEngine, Defuzzifier defuzzifier)
         {
@@ -23,9 +29,14 @@ namespace Core
             return new CrispLiteral(new Variable(""), 0f);
         }
 
-        private Literal[] FuzzifyAll(CrispLiteral[] crispValues)
+        public Literal[] FuzzifyAll(CrispLiteral[] crispValues)
         {
-            return new Literal[0];
+            List<Literal> literals = new List<Literal>();
+            for (int i = 0; i < crispValues.Length; i++)
+            {
+                literals.AddRange(fuzzifiers[crispValues[i].variable].Fuzzify(crispValues[i]));
+            }
+            return literals.ToArray();
         }
     }
 }

@@ -23,10 +23,13 @@ namespace Engine
 
             crispValue.value = normalizer.Normalize(crispValue.value);
             Literal[] literals = new Literal[inputSets.Length];
+            Literal curr;
             int i = 0;
             foreach (FuzzySet inpSet in inputSets)
             {
-                literals[i] = inpSet.GetDegreeOfMembership(crispValue);
+                curr = inpSet.GetDegreeOfMembership(crispValue);
+                curr.variable = new Variable(inputVariable.name);
+                literals[i] = curr;
                 i++;
             }
             return literals;
