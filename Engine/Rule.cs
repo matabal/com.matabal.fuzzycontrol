@@ -4,6 +4,7 @@ namespace Engine
     public class Rule
     {
         RuleNode root;
+        Variable thenCondition;
 
         public Rule(string ruleString)
         {
@@ -12,7 +13,7 @@ namespace Engine
 
         public Literal Infer(Literal[] values)
         {
-            return new Literal(0f, new Descriptor(""));
+            return new Literal(thenCondition, new Descriptor(""), 0f);
         }
     }
 }

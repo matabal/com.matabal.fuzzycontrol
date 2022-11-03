@@ -14,7 +14,7 @@ namespace Engine
 
         public Literal GetDegreeOfMembership(float normalizedValue)
         {
-            return new Literal(function.CalculateDegree(normalizedValue), descriptor);
+            return new Literal(descriptor, function.CalculateDegree(normalizedValue));
         }
     }
 }

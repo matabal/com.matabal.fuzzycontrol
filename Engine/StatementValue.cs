@@ -7,16 +7,40 @@ namespace Engine
 
     public class Literal : StatementValue
     {
-        public float fuzzyValue { get; private set; }
-        public Descriptor descriptor { get; private set; }
-        
-        public Literal(float fuzzyValue, Descriptor descriptor)
+
+        public Variable variable;
+        public Descriptor descriptor;
+        public float fuzzyValue;
+
+
+        public Literal(Variable variable, Descriptor descriptor, float fuzzyValue)
         {
             if (fuzzyValue < 0 || fuzzyValue > 1)
                 throw new InvalidFuzzyValueException(fuzzyValue);
-            this.fuzzyValue = fuzzyValue;
+            this.variable = variable;
             this.descriptor = descriptor;
+            this.fuzzyValue = fuzzyValue;
+        }
 
+        public Literal(Descriptor descriptor, float fuzzyValue)
+        {
+            if (fuzzyValue < 0 || fuzzyValue > 1)
+                throw new InvalidFuzzyValueException(fuzzyValue);
+            this.descriptor = descriptor;
+            this.fuzzyValue = fuzzyValue;
+        }
+
+
+        public Literal(Variable variable, Descriptor descriptor)
+        {
+            this.variable = variable;
+            this.descriptor = descriptor;
+        }
+
+        public Literal(float fuzzyValue)
+        {
+            if (fuzzyValue < 0 || fuzzyValue > 1)
+                throw new InvalidFuzzyValueException(fuzzyValue);
         }
 
         public override string ToString()
@@ -37,7 +61,7 @@ namespace Engine
 
         public override Literal Compose(Literal[] values)
         {
-            return new Literal(0f, new Descriptor(""));
+            return new Literal(0f);
         }
 
         public override string ToString()
@@ -50,7 +74,7 @@ namespace Engine
     {
         public override Literal Compose(Literal[] values)
         {
-            return new Literal(0f, new Descriptor(""));
+            return new Literal(0f);
         }
 
         public override string ToString()
@@ -63,7 +87,7 @@ namespace Engine
     {
         public override Literal Compose(Literal[] values)
         {
-            return new Literal(0f, new Descriptor(""));
+            return new Literal(0f);
         }
 
         public override string ToString()
