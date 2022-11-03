@@ -1,3 +1,5 @@
+using System;
+
 
 namespace Engine {
     public abstract class MembershipFunction
@@ -20,6 +22,15 @@ namespace Engine {
 
         public override float CalculateDegree(float value)
         {
+            if (value < lowerBound)
+                return 0f;
+
+            if (value >= lowerBound && value <= center)
+                return (value - lowerBound) / (center - lowerBound);
+
+            if (value > center && value <= upperBound)
+                return (upperBound - value) / (upperBound - center);
+
             return 0f;
         }
     }
@@ -41,6 +52,17 @@ namespace Engine {
 
         public override float CalculateDegree(float value)
         {
+            if (value <= lowerBound)
+                return 0f;
+
+            if (value > lowerBound && value < lowerCenter)
+                return (value - lowerBound) / (lowerCenter - lowerBound);
+
+            if (value >= lowerCenter && value <= upperCenter)
+                return 1f;
+
+            if (value > upperCenter && value < upperBound)
+                return (upperBound - value) / (upperBound - upperCenter);
             return 0f;
         }
     }
@@ -60,7 +82,9 @@ namespace Engine {
 
         public override float CalculateDegree(float value)
         {
-            return 0f;
+            double bas = (double)Math.Abs((value - center) / width);
+            double power = -0.5 * Math.Pow(bas, (double)fuzzificationFactor);
+            return (float)Math.Exp(power);
         }
     }
 }
