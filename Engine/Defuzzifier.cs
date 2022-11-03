@@ -12,7 +12,7 @@ namespace Engine
             this.normalizer = normalizer;
         }
 
-        public float Defuzzify(Literal[] fuzzyValues)
+        public CrispLiteral Defuzzify(Literal[] fuzzyValues)
         {
             return 0f;
         }
