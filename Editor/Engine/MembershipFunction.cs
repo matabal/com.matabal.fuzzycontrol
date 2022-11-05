@@ -1,7 +1,8 @@
 using System;
 
 
-namespace Engine {
+namespace FuzzyEngine
+{
     public abstract class MembershipFunction
     {
         public abstract float CalculateDegree(float value);

@@ -1,7 +1,7 @@
 {
-  "name": "matabal.fuzzycontrol.Engine.Tests",
-  "references": [
-    "matabal.fuzzycontrol.Engine"
+	"name": "matabal.fuzzycontrol.FuzzyAPI.Tests",
+	"references": [
+    "matabal.fuzzycontrol.FuzzyAPI"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

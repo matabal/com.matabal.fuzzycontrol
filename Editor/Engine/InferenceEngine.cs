@@ -1,5 +1,5 @@
 
-namespace Engine
+namespace FuzzyEngine
 {
     public class InferenceEngine
     {

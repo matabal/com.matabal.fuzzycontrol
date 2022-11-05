@@ -1,6 +1,6 @@
 
 
-namespace Engine
+namespace FuzzyEngine
 {
     using Exceptions;
     public abstract class StatementValue { }

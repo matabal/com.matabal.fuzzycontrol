@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Collections;
-using Engine;
+using FuzzyEngine;
 
 
-namespace Core
+namespace FuzzyControl
 {
     public class ControlUnit
     {
