@@ -15,7 +15,7 @@ namespace FuzzyEngine
         public Literal GetDegreeOfMembership(CrispLiteral normalizedValue)
         {
             float degree = function.CalculateDegree(normalizedValue.value);
-            return new Literal(descriptor, degree);
+            return new Literal(normalizedValue.variable, descriptor, degree);
         }
     }
 }

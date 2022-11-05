@@ -1,4 +1,4 @@
-
+using UnityEngine;
 
 namespace FuzzyEngine
 {
@@ -11,6 +11,7 @@ namespace FuzzyEngine
         public Variable variable;
         public Descriptor descriptor;
         public float fuzzyValue;
+        private bool fuzzyValueAdded = false;
 
 
         public Literal(Variable variable, Descriptor descriptor, float fuzzyValue)
@@ -20,6 +21,7 @@ namespace FuzzyEngine
             this.variable = variable;
             this.descriptor = descriptor;
             this.fuzzyValue = fuzzyValue;
+            fuzzyValueAdded = true;
         }
 
         public Literal(Descriptor descriptor, float fuzzyValue)
@@ -28,6 +30,7 @@ namespace FuzzyEngine
                 throw new InvalidFuzzyValueException(fuzzyValue);
             this.descriptor = descriptor;
             this.fuzzyValue = fuzzyValue;
+            fuzzyValueAdded = true;
         }
 
 
@@ -45,7 +48,40 @@ namespace FuzzyEngine
 
         public override string ToString()
         {
-            return fuzzyValue.ToString();
+
+            string str = "";
+            if (this.variable != null)
+                str += variable.name + " is ";
+
+            if (this.descriptor != null)
+                str += this.descriptor.name;
+
+            if (fuzzyValueAdded)
+                str += " by " + fuzzyValue.ToString();
+
+            return str;
+        }
+
+        public bool Equals(Literal literal)
+        {
+            if (this.variable != null)
+            {
+                if (!variable.Equals(literal.variable))
+                    return false;
+            }    
+
+            if (this.descriptor != null)
+            {
+                if (!descriptor.Equals(literal.descriptor))
+                    return false;
+            }
+
+            if (fuzzyValueAdded)
+            {
+                if (!Mathf.Approximately(fuzzyValue, literal.fuzzyValue))
+                    return false;
+            }
+            return true;
         }
 
     }

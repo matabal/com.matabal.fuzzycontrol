@@ -20,16 +20,12 @@ namespace FuzzyEngine
             if (!crispValue.variable.Equals(inputVariable))
                 throw new MismatchingVariableException();
 
-
             crispValue.value = normalizer.Normalize(crispValue.value);
             Literal[] literals = new Literal[inputSets.Length];
-            Literal curr;
             int i = 0;
             foreach (FuzzySet inpSet in inputSets)
             {
-                curr = inpSet.GetDegreeOfMembership(crispValue);
-                curr.variable = new Variable(inputVariable.name);
-                literals[i] = curr;
+                literals[i] = inpSet.GetDegreeOfMembership(crispValue);
                 i++;
             }
             return literals;
