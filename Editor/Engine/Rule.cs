@@ -9,17 +9,152 @@ namespace FuzzyEngine
     public class Rule
     {
         RuleNode root;
+        bool thenNOT;
         Literal thenCondition;
+        private string ruleString;
+        
 
         public Rule(string ruleString)
         {
             StatementValue[] tokenizedRule = Rule.Tokenize(ruleString);
+            int thenIndex = 0;
+            if (tokenizedRule[tokenizedRule.Length-2] is NOT)
+            {
+                thenNOT = true;
+                thenIndex = tokenizedRule.Length - 3;
+            }
+            else
+            {
+                thenNOT = false;
+                thenIndex = tokenizedRule.Length - 2;
+            }
+            thenCondition = (Literal)tokenizedRule[tokenizedRule.Length - 1];
+            StatementValue[] ifClause = tokenizedRule.Skip(1).Take(thenIndex - 1).ToArray();
+            StatementValue[] posfix = LexPosfix(ifClause);
+
+            int i = 0;
+            Stack<RuleNode> stack = new Stack<RuleNode>();
+            stack.Push(new RuleNode(posfix[i]));
+            i++;
+            while (i < posfix.Length)
+            {
+                if (posfix[i] is Literal)
+                {
+                    stack.Push(new RuleNode(posfix[i]));
+                }
+                else if (posfix[i] is Operator)
+                {
+                    if (posfix[i] is NOT)
+                    {
+                        RuleNode right = stack.Pop();
+                        RuleNode current = new RuleNode(posfix[i]);
+                        current.right = right;
+                        stack.Push(current);
+                    }
+                    else
+                    {
+                        RuleNode right = stack.Pop();
+                        RuleNode left = stack.Pop();
+                        RuleNode current = new RuleNode(posfix[i]);
+                        current.left = left;
+                        current.right = right;
+                        stack.Push(current);
+                    }
+                }
+                else
+                    throw new InvalidRuleException();
+
+                i++;
+            }
+            root = stack.Pop();
+            //Debug.Log(root.left.value);
+
         }
 
         public Literal Infer(Literal[] values)
         {
             return new Literal(thenCondition.variable, new Descriptor(""), 0f);
         }
+
+        public string GetRuleString()
+        {
+            this.ruleString = "";
+            InOrderTraversal(root);
+            return this.ruleString;
+        }
+
+        private void InOrderTraversal(RuleNode node)
+        {
+            if (node == null)
+                return;
+
+            if (node.left != null && node.right != null)
+                this.ruleString += "(";
+            InOrderTraversal(node.left);
+            this.ruleString += node.value.ToString() + " ";
+            InOrderTraversal(node.right);
+            if (node.left != null && node.right != null)
+                this.ruleString += ")";
+        }
+
+        private static int Precedence(StatementValue value)
+        {
+            if (value is NOT)
+                return 3;
+            if (value is AND)
+                return 2;
+            if (value is OR)
+                return 1;
+            return 0;
+        }
+
+        public static StatementValue[] LexPosfix(StatementValue[] tokenized)
+        {
+            List<StatementValue> result = new List<StatementValue>();
+            Stack<StatementValue> stack = new Stack<StatementValue>();
+
+            for (int i = 0; i < tokenized.Length; i++)
+            {
+                StatementValue val = tokenized[i];
+                if (val is Literal)
+                    result.Add(val);
+                else if (val is LeftParenthesis)
+                    stack.Push(val);
+                else if (val is RightParenthesis)
+                {
+                    while (stack.Count > 0 && !(stack.Peek() is LeftParenthesis))
+                    {
+                        result.Add(stack.Pop());
+                    }
+
+                    if (stack.Count > 0 && !(stack.Peek() is LeftParenthesis))
+                    {
+                        throw new InvalidRuleException(); // invalid
+                                                     // expression
+                    }
+                    else
+                    {
+                        stack.Pop();
+                    }
+                }
+                else
+                {
+                    while (stack.Count > 0 && Precedence(val) <= Precedence(stack.Peek()))
+                    {
+                        result.Add(stack.Pop());
+                    }
+                    stack.Push(val);
+                }
+            }
+
+            while (stack.Count > 0)
+            {
+                result.Add(stack.Pop());
+            }
+
+            return result.ToArray();
+        }
+
 
         public static StatementValue[] Tokenize(string ruleString)
         {
