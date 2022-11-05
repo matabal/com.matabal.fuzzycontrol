@@ -86,6 +86,35 @@ namespace FuzzyEngine
 
     }
 
+    public class LeftParenthesis : StatementValue
+    {
+        public override string ToString()
+        {
+            return "(";
+        }
+    }
+    public class RightParenthesis : StatementValue
+    {
+        public override string ToString()
+        {
+            return ")";
+        }
+    }
+
+    public class IfStatement : StatementValue 
+    {
+        public override string ToString()
+        {
+            return "IF";
+        }
+    }
+    public class ThenStatement : StatementValue
+    {
+        public override string ToString()
+        {
+            return "THEN";
+        }
+    }
     public abstract class Operator : StatementValue
     {
 

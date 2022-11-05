@@ -12,10 +12,17 @@ namespace FuzzyEngine
         }
 
 
-        public class MismatchingVariableException : Exception
+        public class VariableMismatchException : Exception
         {
-            public MismatchingVariableException()
+            public VariableMismatchException()
             : base("Fuzzifier/defuzzifier's variable isn't matching the value's variable!")
+            { }
+        }
+
+        public class InvalidRuleException : Exception
+        {
+            public InvalidRuleException()
+            : base("")
             { }
         }
     }

@@ -18,7 +18,7 @@ namespace FuzzyEngine
         public Literal[] Fuzzify(CrispLiteral crispValue)
         {
             if (!crispValue.variable.Equals(inputVariable))
-                throw new MismatchingVariableException();
+                throw new VariableMismatchException();
 
             crispValue.value = normalizer.Normalize(crispValue.value);
             Literal[] literals = new Literal[inputSets.Length];

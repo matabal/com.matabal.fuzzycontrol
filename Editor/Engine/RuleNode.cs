@@ -4,10 +4,10 @@ namespace FuzzyEngine
 {
     public class RuleNode
     {
-        RuleNode parent;
-        RuleNode left;
-        RuleNode right;
-        StatementValue value;
+        private RuleNode parent;
+        private RuleNode left;
+        private RuleNode right;
+        public StatementValue value;
 
         public RuleNode(RuleNode parent, RuleNode left, RuleNode right, StatementValue value)
         {

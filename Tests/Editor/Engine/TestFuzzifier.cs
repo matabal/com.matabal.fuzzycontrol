@@ -65,7 +65,6 @@ public class TestFuzzifier
             Literal[] supposed = (Literal[])inputOutputValues[i, 1];
             for (int s = 0; s < real.Length; s++)
             {
-                //Debug.Log("Real: " + real[s].ToString() + "\n" + "Supposed: " + supposed[s].ToString()  + "\n\n");
                 Assert.IsTrue(real[s].Equals(supposed[s]));
             }
         }
@@ -81,7 +80,7 @@ public class TestFuzzifier
         {
             foodFuzzifier.Fuzzify(new CrispLiteral(invalid, 0f));
         }
-        catch (MismatchingVariableException)
+        catch (VariableMismatchException)
         {
             Assert.IsTrue(true);
             return;
