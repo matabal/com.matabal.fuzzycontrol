@@ -76,7 +76,13 @@ namespace FuzzyEngine
             inferenceValues = values;
             InsertLiterals(root);
             EvaluateTree(root);
-            return new Literal(thenCondition.variable, new Descriptor(""), 0f);
+            Literal result = new Literal(thenCondition.variable, thenCondition.descriptor);
+            if (thenNOT)
+                result.SetFuzzyValue(1f - ((Literal)root.value).fuzzyValue);
+            else
+                result.SetFuzzyValue(((Literal)root.value).fuzzyValue);
+
+            return result;
         }
 
         public string GetRuleString()
