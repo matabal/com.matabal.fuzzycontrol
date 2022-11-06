@@ -15,6 +15,13 @@ namespace FuzzyEngine
         private Literal[] inferenceValues;
         
 
+        private Rule(RuleNode root, bool thenNOT, Literal thenCondition)
+        {
+            this.root = root;
+            this.thenNOT = thenNOT;
+            this.thenCondition = thenCondition;
+        }
+
         public Rule(string ruleString)
         {
             StatementValue[] tokenizedRule = Rule.Tokenize(ruleString);
@@ -69,6 +76,25 @@ namespace FuzzyEngine
             }
             root = stack.Pop();
 
+        }
+
+        public Rule Copy()
+        {
+            Literal thenCond = new Literal(new Variable(thenCondition.variable.name), new Descriptor(thenCondition.descriptor.name));
+            bool thenNot = this.thenNOT == true;
+            RuleNode root = CopyRuleTree(this.root);
+            return new Rule(root, thenNot, thenCond);
+        }
+
+        private RuleNode CopyRuleTree(RuleNode node)
+        {
+            if (node == null)
+                return null;
+
+            RuleNode copy = node.Copy();
+            copy.left = CopyRuleTree(node.left);
+            copy.right = CopyRuleTree(node.right);
+            return copy;
         }
 
         public Literal Infer(Literal[] values)
