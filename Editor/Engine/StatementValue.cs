@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace FuzzyEngine
 {
@@ -44,6 +45,8 @@ namespace FuzzyEngine
         {
             if (fuzzyValue < 0 || fuzzyValue > 1)
                 throw new InvalidFuzzyValueException(fuzzyValue);
+            this.fuzzyValue = fuzzyValue;
+            fuzzyValueAdded = true;
         }
 
         public override string ToString()
@@ -84,6 +87,12 @@ namespace FuzzyEngine
             return true;
         }
 
+        public int CompareTo(Literal other)
+        {
+            double fuzVal = (double)fuzzyValue;
+            return fuzVal.CompareTo((double)other.fuzzyValue);
+        }
+
     }
 
     public class LeftParenthesis : StatementValue
@@ -118,15 +127,21 @@ namespace FuzzyEngine
     public abstract class Operator : StatementValue
     {
 
-        public abstract Literal Compose(Literal[] values);
+        public abstract Literal Compose(List<Literal> literals);
     }
 
     public class AND : Operator
     {
 
-        public override Literal Compose(Literal[] values)
+        public override Literal Compose(List<Literal> literals)
         {
-            return new Literal(0f);
+            Literal minLit = literals[0];
+            foreach (Literal lit in literals)
+            {
+                if (lit.fuzzyValue < minLit.fuzzyValue)
+                    minLit = lit;
+            }
+            return new Literal(minLit.variable, minLit.descriptor, minLit.fuzzyValue);
         }
 
         public override string ToString()
@@ -137,9 +152,15 @@ namespace FuzzyEngine
 
     public class OR : Operator
     {
-        public override Literal Compose(Literal[] values)
+        public override Literal Compose(List<Literal> literals)
         {
-            return new Literal(0f);
+            Literal maxLit = literals[0];
+            foreach (Literal lit in literals)
+            {
+                if (lit.fuzzyValue > maxLit.fuzzyValue)
+                    maxLit = lit;
+            }
+            return new Literal(maxLit.variable, maxLit.descriptor, maxLit.fuzzyValue);
         }
 
         public override string ToString()
@@ -150,9 +171,9 @@ namespace FuzzyEngine
 
     public class NOT : Operator
     {
-        public override Literal Compose(Literal[] values)
+        public override Literal Compose(List<Literal> literals)
         {
-            return new Literal(0f);
+            return new Literal(literals[0].variable, literals[0].descriptor, 1 - literals[0].fuzzyValue);
         }
 
         public override string ToString()

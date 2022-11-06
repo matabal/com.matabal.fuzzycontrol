@@ -67,7 +67,6 @@ namespace FuzzyEngine
                 i++;
             }
             root = stack.Pop();
-            //Debug.Log(root.left.value);
 
         }
 
@@ -78,9 +77,14 @@ namespace FuzzyEngine
 
         public string GetRuleString()
         {
-            this.ruleString = "";
+            ruleString = "If ";
             InOrderTraversal(root);
-            return this.ruleString;
+            if (thenNOT)
+                ruleString += "THEN (NOT ";
+            else
+                ruleString += "THEN (";
+            ruleString += thenCondition.ToString() + ")";
+            return ruleString;
         }
 
         private void InOrderTraversal(RuleNode node)
@@ -89,12 +93,12 @@ namespace FuzzyEngine
                 return;
 
             if (node.left != null && node.right != null)
-                this.ruleString += "(";
+                this.ruleString += " (";
             InOrderTraversal(node.left);
             this.ruleString += node.value.ToString() + " ";
             InOrderTraversal(node.right);
             if (node.left != null && node.right != null)
-                this.ruleString += ")";
+                this.ruleString += ") ";
         }
 
         private static int Precedence(StatementValue value)
