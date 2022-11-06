@@ -12,6 +12,7 @@ namespace FuzzyEngine
         bool thenNOT;
         Literal thenCondition;
         private string ruleString;
+        private Literal[] inferenceValues;
         
 
         public Rule(string ruleString)
@@ -72,13 +73,16 @@ namespace FuzzyEngine
 
         public Literal Infer(Literal[] values)
         {
+            inferenceValues = values;
+            InsertLiterals(root);
+            EvaluateTree(root);
             return new Literal(thenCondition.variable, new Descriptor(""), 0f);
         }
 
         public string GetRuleString()
         {
-            ruleString = "If ";
-            InOrderTraversal(root);
+            ruleString = "IF ";
+            InOrderPrintTraversal(root);
             if (thenNOT)
                 ruleString += "THEN (NOT ";
             else
@@ -87,18 +91,95 @@ namespace FuzzyEngine
             return ruleString;
         }
 
-        private void InOrderTraversal(RuleNode node)
+        private void InOrderPrintTraversal(RuleNode node)
         {
             if (node == null)
                 return;
 
             if (node.left != null && node.right != null)
                 this.ruleString += " (";
-            InOrderTraversal(node.left);
+            InOrderPrintTraversal(node.left);
             this.ruleString += node.value.ToString() + " ";
-            InOrderTraversal(node.right);
+            InOrderPrintTraversal(node.right);
             if (node.left != null && node.right != null)
                 this.ruleString += ") ";
+        }
+
+        private void InsertLiterals(RuleNode node)
+        {
+            if (node == null)
+                return;
+
+            
+            InsertLiterals(node.left);
+            InsertLiterals(node.right);
+            if (node.left == null && node.right == null)
+            {
+                foreach (Literal lit in inferenceValues)
+                {
+                    if (lit.variable.Equals(((Literal)node.value).variable)
+                        && lit.descriptor.Equals(((Literal)node.value).descriptor))
+                    {
+                        ((Literal)node.value).SetFuzzyValue(lit.fuzzyValue);
+                    }
+                }
+
+                if (node.value is Literal)
+                {
+                    if (!((Literal)node.value).fuzzyValueAdded)
+                        throw new MissingFuzzyValue();
+
+                }
+            }
+
+        }
+
+        private void EvaluateTree(RuleNode node)
+        {
+            if (node == null)
+                return;
+
+            EvaluateTree(node.left);
+            EvaluateTree(node.right);
+            if (node.left != null || node.right != null)
+            {
+                if (node.left != null && node.right != null)
+                {
+                    if (node.left.value is Literal && node.right.value is Literal)
+                    {
+                        List<Literal> childValues = new List<Literal>();
+                        childValues.Add((Literal)node.left.value);
+                        node.left = null;
+                        childValues.Add((Literal)node.right.value);
+                        node.right = null;
+                        Literal newValue = ((Operator)node.value).Compose(childValues);
+                        node.value = newValue;
+                    }
+                }
+                else if (node.left != null && node.right == null)
+                {
+                    if (node.left.value is Literal)
+                    {
+                        List<Literal> childValues = new List<Literal>();
+                        childValues.Add((Literal)node.left.value);
+                        node.left = null;
+                        Literal newValue = ((Operator)node.value).Compose(childValues);
+                        node.value = newValue;
+                    }
+                }
+                else if (node.right != null && node.left == null)
+                {
+                    if (node.right.value is Literal)
+                    {
+                        List<Literal> childValues = new List<Literal>();
+                        childValues.Add((Literal)node.right.value);
+                        node.right = null;
+                        Literal newValue = ((Operator)node.value).Compose(childValues);
+                        node.value = newValue;
+                    }
+                }
+
+            }
         }
 
         private static int Precedence(StatementValue value)

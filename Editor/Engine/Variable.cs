@@ -9,8 +9,8 @@ namespace FuzzyEngine
 
         public Variable(string name)
         {
-            this.name = name;
-            hash = name.GetHashCode();
+            this.name = name.Trim();
+            hash = this.name.GetHashCode();
         }
 
         public bool Equals(Variable variable)

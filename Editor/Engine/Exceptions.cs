@@ -22,7 +22,16 @@ namespace FuzzyEngine
         public class InvalidRuleException : Exception
         {
             public InvalidRuleException()
-            : base("")
+            : base("Invalid rule syntax used!")
+            { }
+        }
+
+        public class MissingFuzzyValue : Exception
+        {
+            public MissingFuzzyValue()
+            : base("Not all fuzzy sets in the rules were matched with given fuzzy values.\n" +
+                  "Please check that you created a fuzzy set corresponding to all your variables " +
+                  "and linguistic descriptors in your rules.")
             { }
         }
     }

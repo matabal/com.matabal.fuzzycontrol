@@ -11,11 +11,11 @@ namespace FuzzyEngine
 
         public Variable variable;
         public Descriptor descriptor;
-        public float fuzzyValue;
-        private bool fuzzyValueAdded = false;
+        public float fuzzyValue { get; private set; }
+        public bool fuzzyValueAdded { get; private set; } = false;
 
 
-        public Literal(Variable variable, Descriptor descriptor, float fuzzyValue)
+    public Literal(Variable variable, Descriptor descriptor, float fuzzyValue)
         {
             if (fuzzyValue < 0 || fuzzyValue > 1)
                 throw new InvalidFuzzyValueException(fuzzyValue);
@@ -85,6 +85,12 @@ namespace FuzzyEngine
                     return false;
             }
             return true;
+        }
+
+        public void SetFuzzyValue(float fuzzyValue)
+        {
+            fuzzyValueAdded = true;
+            this.fuzzyValue = fuzzyValue;
         }
 
         public int CompareTo(Literal other)
@@ -173,7 +179,7 @@ namespace FuzzyEngine
     {
         public override Literal Compose(List<Literal> literals)
         {
-            return new Literal(literals[0].variable, literals[0].descriptor, 1 - literals[0].fuzzyValue);
+            return new Literal(literals[0].variable, literals[0].descriptor, 1.0f - literals[0].fuzzyValue);
         }
 
         public override string ToString()

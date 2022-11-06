@@ -7,8 +7,8 @@ namespace FuzzyEngine
 
         public Descriptor(string name)
         {
-            this.name = name;
-            hash = name.GetHashCode();
+            this.name = name.Trim();
+            hash = this.name.GetHashCode();
         }
 
         public bool Equals(Descriptor descriptor)
