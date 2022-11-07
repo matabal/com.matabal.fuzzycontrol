@@ -26,6 +26,9 @@ namespace FuzzyControl
 
         public CrispLiteral RunEngine(CrispLiteral[] crispValues)
         {
+            Literal[] fuzzyValues = FuzzifyAll(crispValues);
+            Literal[] fuzzyOutput = inferenceEngine.InferAll(fuzzyValues);
+
             return new CrispLiteral(new Variable(""), 0f);
         }
 
