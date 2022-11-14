@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 
 namespace FuzzyEngine
@@ -125,21 +126,21 @@ namespace FuzzyEngine
         public override float GetLimitedArea(float yLimit)
         {
             double k =  Math.Sqrt(-2 * Math.Log(yLimit) * Math.Pow(stdDev, 2));
-            float x1 = (float)Math.Abs(k + mean);
-            float x2 = (float)Math.Abs(k - mean);
+            float x1 = (float)(mean - k);
+            float x2 = (float)(mean + k);
 
             Func<float, float> cutoff = (x) =>
             {
-                if ((x >= x1 && x <= x2) || (x <= x1 && x >= x2))
+                if (x >= x1 && x <= x2)
                     return this.CalculateDegree(x);
 
                 return 0;
             };
 
-            int n = 1000;
             float sum = 0;
-            if (x1 < x2)
+            if (!Mathf.Approximately(x1, x2))
             {
+                int n = 1000;
                 float delta = (x2 - x1) / n;
                 sum += cutoff(x1);
                 for (int i = 1; i < n; i++)
@@ -147,17 +148,6 @@ namespace FuzzyEngine
                     sum += 2 * cutoff(x1 + (delta * i));
                 }
                 sum += cutoff(x1 + (delta*n));
-
-            }
-            else if (x1 > x2)
-            {
-                float delta = (x1 - x2) / n;
-                sum += cutoff(x2);
-                for (int i = 1; i < n; i++)
-                {
-                    sum += 2 * cutoff(x2 + (delta * i));
-                }
-                sum += cutoff(x2 + (delta * n));
             }
 
             float totalArea = stdDev / 0.3989f;
@@ -168,8 +158,8 @@ namespace FuzzyEngine
         public override float GetXCenter(float yLimit)
         {
             double k = Math.Sqrt(-2 * Math.Log(yLimit) * Math.Pow(stdDev, 2));
-            float x1 = (float)Math.Abs(k + mean);
-            float x2 = (float)Math.Abs(k - mean);
+            float x1 = (float)(mean - k);
+            float x2 = (float)(mean + k);
 
             return (x1 + x2) / 2;
         }
