@@ -15,7 +15,7 @@ namespace FuzzyEngine
         public bool fuzzyValueAdded { get; private set; } = false;
 
 
-    public Literal(Variable variable, Descriptor descriptor, float fuzzyValue)
+        public Literal(Variable variable, Descriptor descriptor, float fuzzyValue)
         {
             if (fuzzyValue < 0 || fuzzyValue > 1)
                 throw new InvalidFuzzyValueException(fuzzyValue);

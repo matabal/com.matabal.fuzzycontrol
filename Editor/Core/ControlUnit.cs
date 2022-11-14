@@ -28,8 +28,7 @@ namespace FuzzyControl
         {
             Literal[] fuzzyValues = FuzzifyAll(crispValues);
             Literal[] fuzzyOutput = inferenceEngine.InferAll(fuzzyValues);
-
-            return new CrispLiteral(new Variable(""), 0f);
+            return defuzzifier.Defuzzify(fuzzyOutput);
         }
 
         public Literal[] FuzzifyAll(CrispLiteral[] crispValues)

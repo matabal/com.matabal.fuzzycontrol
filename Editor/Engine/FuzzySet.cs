@@ -3,8 +3,8 @@ namespace FuzzyEngine
 {
     public class FuzzySet
     {
-        private MembershipFunction function;
-        private Descriptor descriptor;
+        public MembershipFunction function { get; private set; }
+        public Descriptor descriptor { get; private set; }
 
         public FuzzySet(MembershipFunction membershipFunction, Descriptor descriptor)
         {
