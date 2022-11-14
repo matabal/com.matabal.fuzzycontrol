@@ -246,8 +246,7 @@ namespace FuzzyEngine
 
                     if (stack.Count > 0 && !(stack.Peek() is LeftParenthesis))
                     {
-                        throw new InvalidRuleException(); // invalid
-                                                     // expression
+                        throw new InvalidRuleException();
                     }
                     else
                     {
@@ -272,7 +271,7 @@ namespace FuzzyEngine
             return result.ToArray();
         }
 
-
+        
         public static StatementValue[] Tokenize(string ruleString)
         {
             Match match = Regex.Match(
@@ -349,7 +348,6 @@ namespace FuzzyEngine
                 tokenized.Add(new NOT());
                 Descriptor thenDescriptor = new Descriptor(notSplit[1]);
                 tokenized.Add(new Literal(thenVar, thenDescriptor));
-               
             }
             else
             {
