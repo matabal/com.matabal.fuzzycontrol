@@ -26,7 +26,7 @@ namespace FuzzyEngine
             foreach (Literal val in fuzzyValues)
             {
                 FuzzySet outSet = outputSets[val.descriptor.name];
-                num += outSet.function.GetLimitedArea(val.fuzzyValue) * outSet.function.GetXCenter();
+                num += outSet.function.GetLimitedArea(val.fuzzyValue) * outSet.function.GetCOA(val.fuzzyValue);
                 denum += outSet.function.GetLimitedArea(val.fuzzyValue);
             }
             return new CrispLiteral(outputVariable, normalizer.Denormalize(num/denum));

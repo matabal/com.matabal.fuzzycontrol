@@ -8,7 +8,7 @@ namespace FuzzyEngine
     {
         public abstract float CalculateDegree(float value);
         public abstract float GetLimitedArea(float yLimuit);
-        public abstract float GetXCenter(float yLimit);
+        public abstract float GetCOA(float yLimit);
     }
 
     public class Triangular : MembershipFunction
@@ -42,16 +42,16 @@ namespace FuzzyEngine
         {
             float i1 = yLimit * (center - lowerBound) + lowerBound;
             float i2 = upperBound - yLimit * (upperBound - center);
-            float ceiling = i2 - i1;
-            float bas = upperBound - lowerBound;
-            return ((ceiling + bas)/2)*yLimit;
+            float ceiling = Math.Abs(i2 - i1);
+            float floor = upperBound - lowerBound;
+            return ((ceiling + floor) /2)*yLimit;
         }
 
-        public override float GetXCenter(float yLimit)
+        public override float GetCOA(float yLimit)
         {
             float i1 = yLimit * (center - lowerBound) + lowerBound;
             float i2 = upperBound - yLimit * (upperBound - center);
-            return (i1 + i2) / 2;
+            return (lowerBound + i1 + i2 + upperBound) / 4;
         }
 
     }
@@ -91,16 +91,16 @@ namespace FuzzyEngine
         {
             float i1 = yLimit * (lowerCenter - lowerBound) + lowerBound;
             float i2 = upperBound - yLimit * (upperBound - upperCenter);
-            float ceiling = i2 - i1;
-            float bas = upperBound - lowerBound;
-            return ((ceiling + bas) / 2) * yLimit;
+            float ceiling = Math.Abs(i2 - i1);
+            float floor = upperBound - lowerBound;
+            return ((ceiling + floor) / 2) * yLimit;
         }
 
-        public override float GetXCenter(float yLimit)
+        public override float GetCOA(float yLimit)
         {
             float i1 = yLimit * (lowerCenter - lowerBound) + lowerBound;
             float i2 = upperBound - yLimit * (upperBound - upperCenter);
-            return (i1 + i2) / 2;
+            return (lowerBound + i1 + i2 + upperBound) / 4;
         }
 
     }
@@ -125,43 +125,42 @@ namespace FuzzyEngine
 
         public override float GetLimitedArea(float yLimit)
         {
-            double k =  Math.Sqrt(-2 * Math.Log(yLimit) * Math.Pow(stdDev, 2));
-            float x1 = (float)(mean - k);
-            float x2 = (float)(mean + k);
+
+            if (Mathf.Approximately(yLimit, 0f))
+            {
+                return 0f;
+            }
 
             Func<float, float> cutoff = (x) =>
             {
-                if (x >= x1 && x <= x2)
-                    return this.CalculateDegree(x);
-
-                return 0;
+                float y = CalculateDegree(x);
+                if (y < yLimit)
+                    return y;
+                return yLimit;
             };
 
-            float sum = 0;
-            if (!Mathf.Approximately(x1, x2))
-            {
-                int n = 1000;
-                float delta = (x2 - x1) / n;
-                sum += cutoff(x1);
+            if (!Mathf.Approximately(yLimit, 1f))
+            {  
+                float sum = 0;
+                float start = mean - 4 * stdDev;
+                float end = mean + 4 * stdDev;
+                int n = (int)Math.Ceiling(Math.Abs(end - start))*100;
+                float delta = Math.Abs(end - start) / n;
+                sum += cutoff(start);
                 for (int i = 1; i < n; i++)
                 {
-                    sum += 2 * cutoff(x1 + (delta * i));
+                    sum += 2 * cutoff(start + (delta * i));
                 }
-                sum += cutoff(x1 + (delta*n));
+                sum += cutoff(start + (delta * n));
+                return (delta / 2) * sum;
             }
 
-            float totalArea = stdDev / 0.3989f;
-
-            return totalArea - sum;
+            return stdDev / 0.3989f;
         }
 
-        public override float GetXCenter(float yLimit)
+        public override float GetCOA(float yLimit)
         {
-            double k = Math.Sqrt(-2 * Math.Log(yLimit) * Math.Pow(stdDev, 2));
-            float x1 = (float)(mean - k);
-            float x2 = (float)(mean + k);
-
-            return (x1 + x2) / 2;
+            return mean;
         }
     }
 }

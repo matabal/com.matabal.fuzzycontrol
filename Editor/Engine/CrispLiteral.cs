@@ -11,5 +11,10 @@ namespace FuzzyEngine
             this.variable = variable;
             this.value = value;
         }
+
+        public override string ToString()
+        {
+            return variable.name + " is " + value.ToString();
+        }
     }
 }
