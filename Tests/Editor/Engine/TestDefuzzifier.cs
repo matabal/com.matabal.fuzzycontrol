@@ -31,7 +31,8 @@ public class TestDefuzzifier
         {
             new Literal(tip, low, 0f),
             new Literal(tip, medium, 0.2f),
-            new Literal(tip, high, 0.4f)
+            new Literal(tip, high, 0.4f),
+            new Literal(tip, high, 0.3f)
         };
         CrispLiteral output = defuzzifier.Defuzzify(sampleInput);
         float expected = 6.6f;
