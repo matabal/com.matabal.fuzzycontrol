@@ -12,8 +12,9 @@ namespace FuzzyControl
         private Triple<Component, Variable, string>[] variableMap;
         private Triple<Component, Variable, float>[] captured;
         private ControlUnit controlUnit;
-        private Component outputComponent;
-        private string outputVariableName;
+        private Triple<Component, Variable, string> outputVariable;
+        //private Component outputComponent;
+        //private string outputVariableName;
 
         // Start is called before the first frame update
         void Start()
@@ -29,7 +30,7 @@ namespace FuzzyControl
                 if (CaptureChange())
                 {
                     CrispLiteral output = controlUnit.RunEngine(ToCrispLiterals());
-                    FuzzyController.SetComponentField(outputComponent, outputVariableName, output.value);
+                    FuzzyController.SetComponentField(outputVariable.first, outputVariable.third, output.value);
                 }
             }
         }
@@ -64,8 +65,7 @@ namespace FuzzyControl
             GameObject obj,
             Triple<Component, Variable, string>[] variableMap,
             ControlUnit controlUnit,
-            Component outputComponent,
-            string outputVariableName
+            Triple<Component, Variable, string> outputVariable
         )
         {
             FuzzyController controller = obj.AddComponent<FuzzyController>();
@@ -82,8 +82,7 @@ namespace FuzzyControl
             }
 
             controller.controlUnit = controlUnit;
-            controller.outputComponent = outputComponent;
-            controller.outputVariableName = outputVariableName;
+            controller.outputVariable = outputVariable;
             return controller;
         }
 
