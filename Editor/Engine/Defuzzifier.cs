@@ -32,7 +32,12 @@ namespace FuzzyEngine
                 num += outSet.function.GetLimitedArea(val.fuzzyValue) * outSet.function.GetCOA(val.fuzzyValue);
                 denum += outSet.function.GetLimitedArea(val.fuzzyValue);
             }
-            return new CrispLiteral(outputVariable, normalizer.Denormalize(num/denum));
+
+            float result = num/denum;
+            if (denum == 0f)
+                result = 0f;
+
+            return new CrispLiteral(outputVariable, normalizer.Denormalize(result));
         }
 
         private Literal[] CleanFuzzyValues(Literal[] fuzzyValues)
@@ -42,7 +47,7 @@ namespace FuzzyEngine
             {
                 if (maxVals.ContainsKey(val.descriptor.name))
                 {
-                    if (maxVals[val.descriptor.name].fuzzyValue < val.fuzzyValue)
+                    if (val.fuzzyValue > maxVals[val.descriptor.name].fuzzyValue)
                     {
                         maxVals[val.descriptor.name] = val;
                     }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using FuzzyEngine;
+using UnityEngine;
 
 
 namespace FuzzyControl
@@ -28,6 +29,8 @@ namespace FuzzyControl
         {
             Literal[] fuzzyValues = FuzzifyAll(crispValues);
             Literal[] fuzzyOutput = inferenceEngine.InferAll(fuzzyValues);
+            foreach (Literal val in fuzzyValues)
+                Debug.Log(val);
             return defuzzifier.Defuzzify(fuzzyOutput);
         }
 
