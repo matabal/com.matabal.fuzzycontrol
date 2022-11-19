@@ -1,5 +1,5 @@
 
-namespace FuzzyEngine
+namespace FuzzyControlEngine
 {
     using Exceptions;
     public class Fuzzifier

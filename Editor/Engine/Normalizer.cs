@@ -1,5 +1,5 @@
 
-namespace FuzzyEngine
+namespace FuzzyControlEngine
 {
     public class Normalizer
     {

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using FuzzyEngine;
+using FuzzyControlEngine;
+using FuzzyControlGeneric;
 using FuzzyControl;
 
-namespace FuzzyAPI
+namespace FuzzyControlAPI
 {
     using Exceptions;
 
@@ -24,7 +25,7 @@ namespace FuzzyAPI
             this.defuzzifierSets = new List<FuzzySet>();
         }
 
-        public FuzzyController AttachFuzzyController(GameObject obj)
+        public void AttachFuzzyController(GameObject obj)
         {
             if (inputVariables.Count <= 0)
                 throw new MissingBuildItemException("input variables");
@@ -44,13 +45,12 @@ namespace FuzzyAPI
                 inferenceEngine,
                 defuzzifier
             );
-            FuzzyController controller = FuzzyController.MakeFuzzyController(
+            FuzzyController.MakeFuzzyController(
                 obj,
                 inputVariables.ToArray(),
                 controlUnit,
                 outputVariable
             );
-            return controller;
         }
 
         public void AddRule(string ruleStr)

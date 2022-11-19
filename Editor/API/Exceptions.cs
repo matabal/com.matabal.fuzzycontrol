@@ -1,6 +1,6 @@
 using System;
 
-namespace FuzzyAPI
+namespace FuzzyControlAPI
 {
     namespace Exceptions
     {

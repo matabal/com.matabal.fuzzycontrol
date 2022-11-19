@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace FuzzyEngine
+namespace FuzzyControlEngine
 {
     using Exceptions;
     public class Rule

@@ -1,10 +1,6 @@
 using System.Collections.Generic;
-using System.Collections;
-using FuzzyEngine;
-using UnityEngine;
 
-
-namespace FuzzyEngine
+namespace FuzzyControlEngine
 {
     public class ControlUnit
     {

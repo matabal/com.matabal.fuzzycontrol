@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace FuzzyEngine
+namespace FuzzyControlEngine
 {
     public class Defuzzifier
     {

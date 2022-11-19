@@ -1,7 +1,6 @@
 using System.Text.RegularExpressions;
-using UnityEngine;
 
-namespace FuzzyEngine
+namespace FuzzyControlEngine
 {
     public class InferenceEngine
     {

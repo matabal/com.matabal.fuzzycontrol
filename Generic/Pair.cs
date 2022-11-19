@@ -1,4 +1,4 @@
-namespace FuzzyAPI
+namespace FuzzyControlGeneric
 {
     public class Pair<T, U>
     {

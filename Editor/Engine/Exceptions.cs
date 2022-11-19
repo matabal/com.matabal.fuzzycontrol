@@ -1,6 +1,6 @@
 using System;
 
-namespace FuzzyEngine
+namespace FuzzyControlEngine
 {
     namespace Exceptions
     {

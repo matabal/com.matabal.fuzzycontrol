@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace FuzzyEngine
+namespace FuzzyControlEngine
 {
     using Exceptions;
     public abstract class StatementValue { }

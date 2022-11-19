@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using FuzzyEngine;
-using FuzzyEngine.Exceptions;
+using FuzzyControlEngine;
+using FuzzyControlEngine.Exceptions;
 
 
 public class TestFuzzifier

@@ -1,6 +1,6 @@
 using UnityEngine;
-using FuzzyEngine;
-using FuzzyAPI;
+using FuzzyControlEngine;
+using FuzzyControlGeneric;
 
 
 namespace FuzzyControl

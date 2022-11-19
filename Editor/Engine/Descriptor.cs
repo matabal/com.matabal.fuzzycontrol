@@ -1,4 +1,4 @@
-namespace FuzzyEngine
+namespace FuzzyControlEngine
 {
     public class Descriptor
     {

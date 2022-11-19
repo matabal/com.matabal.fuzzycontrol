@@ -1,4 +1,4 @@
-namespace FuzzyAPI
+namespace FuzzyControlGeneric
 {
     public class Triple<T, U, S>
     {
