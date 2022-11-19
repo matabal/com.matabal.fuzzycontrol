@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace FuzzyEngine
@@ -26,16 +28,16 @@ namespace FuzzyEngine
 
         public override float CalculateDegree(float value)
         {
-            if (value < lowerBound)
-                return 0f;
+            List<float> vals = new List<float>();
+            float a1 = (value - lowerBound) / (center - lowerBound);
+            float a2 = (upperBound - value) / (upperBound - center);
 
-            if (value >= lowerBound && value <= center)
-                return (value - lowerBound) / (center - lowerBound);
+            if (!float.IsInfinity(a1) && !float.IsNaN(a1))
+                vals.Add(a1);
+            if (!float.IsInfinity(a2) && !float.IsNaN(a2))
+                vals.Add(a2);
 
-            if (value > center && value <= upperBound)
-                return (upperBound - value) / (upperBound - center);
-
-            return 0f;
+            return Math.Max(vals.Min(), 0);
         }
 
         public override float GetLimitedArea(float yLimit)
@@ -73,18 +75,17 @@ namespace FuzzyEngine
 
         public override float CalculateDegree(float value)
         {
-            if (value <= lowerBound)
-                return 0f;
+            float a1 = (value - lowerBound) / (lowerCenter - lowerBound);
+            float a3 = (upperBound - value) / (upperBound - upperCenter);
 
-            if (value > lowerBound && value < lowerCenter)
-                return (value - lowerBound) / (lowerCenter - lowerBound);
+            List<float> vals = new List<float>();
+            if (!float.IsInfinity(a1) && !float.IsNaN(a1))
+                vals.Add(a1);
+            vals.Add(1f);
+            if (!float.IsInfinity(a3) && !float.IsNaN(a3))
+                vals.Add(a3);
 
-            if (value >= lowerCenter && value <= upperCenter)
-                return 1f;
-
-            if (value > upperCenter && value < upperBound)
-                return (upperBound - value) / (upperBound - upperCenter);
-            return 0f;
+            return Math.Max(vals.Min(), 0f);
         }
 
         public override float GetLimitedArea(float yLimit)
