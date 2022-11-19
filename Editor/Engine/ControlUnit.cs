@@ -4,7 +4,7 @@ using FuzzyEngine;
 using UnityEngine;
 
 
-namespace FuzzyControl
+namespace FuzzyEngine
 {
     public class ControlUnit
     {
@@ -29,8 +29,6 @@ namespace FuzzyControl
         {
             Literal[] fuzzyValues = FuzzifyAll(crispValues);
             Literal[] fuzzyOutput = inferenceEngine.InferAll(fuzzyValues);
-            foreach (Literal val in fuzzyValues)
-                Debug.Log(val);
             return defuzzifier.Defuzzify(fuzzyOutput);
         }
 
