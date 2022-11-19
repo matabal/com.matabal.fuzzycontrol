@@ -34,7 +34,7 @@ namespace FuzzyEngine
             }
 
             float result = num/denum;
-            if (float.IsInfinity(result))
+            if (float.IsInfinity(result) || float.IsNaN(result))
                 result = 0f;
 
             return new CrispLiteral(outputVariable, normalizer.Denormalize(result));

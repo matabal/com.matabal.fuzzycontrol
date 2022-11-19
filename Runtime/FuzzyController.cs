@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FuzzyEngine;
 using FuzzyAPI;
@@ -13,8 +11,6 @@ namespace FuzzyControl
         private Triple<Component, Variable, float>[] captured;
         private ControlUnit controlUnit;
         private Triple<Component, Variable, string> outputVariable;
-        //private Component outputComponent;
-        //private string outputVariableName;
 
         // Start is called before the first frame update
         void Start()

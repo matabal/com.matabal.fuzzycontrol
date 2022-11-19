@@ -28,16 +28,18 @@ namespace FuzzyEngine
 
         public override float CalculateDegree(float value)
         {
+            bool isA1Undefined = Mathf.Approximately(center - lowerBound, 0f);
+            bool isA2Undefined = Mathf.Approximately(upperBound - center, 0f);
+
             List<float> vals = new List<float>();
-            float a1 = (value - lowerBound) / (center - lowerBound);
-            float a2 = (upperBound - value) / (upperBound - center);
+            if (!isA1Undefined)
+                vals.Add((value - lowerBound) / (center - lowerBound));
+            if (!isA2Undefined)
+                vals.Add((upperBound - value) / (upperBound - center));
 
-            if (!float.IsInfinity(a1) && !float.IsNaN(a1))
-                vals.Add(a1);
-            if (!float.IsInfinity(a2) && !float.IsNaN(a2))
-                vals.Add(a2);
-
-            return Math.Max(vals.Min(), 0);
+            if (vals.Count > 0)
+                return Math.Max(vals.Min(), 0f);
+            return 0f;
         }
 
         public override float GetLimitedArea(float yLimit)
@@ -75,15 +77,16 @@ namespace FuzzyEngine
 
         public override float CalculateDegree(float value)
         {
-            float a1 = (value - lowerBound) / (lowerCenter - lowerBound);
-            float a3 = (upperBound - value) / (upperBound - upperCenter);
+            bool isA1Undefined = Mathf.Approximately(lowerCenter - lowerBound, 0f);
+            bool isA2Undefined = Mathf.Approximately(upperBound - upperCenter, 0f);
 
             List<float> vals = new List<float>();
-            if (!float.IsInfinity(a1) && !float.IsNaN(a1))
-                vals.Add(a1);
+            
+            if (!isA1Undefined)
+                vals.Add((value - lowerBound) / (lowerCenter - lowerBound));
             vals.Add(1f);
-            if (!float.IsInfinity(a3) && !float.IsNaN(a3))
-                vals.Add(a3);
+            if (!isA2Undefined)
+                vals.Add((upperBound - value) / (upperBound - upperCenter));
 
             return Math.Max(vals.Min(), 0f);
         }

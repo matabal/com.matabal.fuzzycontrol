@@ -2,6 +2,6 @@
 	"name": "matabal.fuzzycontrol",
     "references": [
         "matabal.fuzzycontrol.FuzzyEngine",
-        "matabal.fuzzycontrol.FuzzyAPI"
+        "matabal.fuzzycontrol.Generic"
     ]
 }

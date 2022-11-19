@@ -12,12 +12,6 @@ namespace FuzzyEngine
         private InferenceEngine inferenceEngine;
         private Defuzzifier defuzzifier;
 
-        /* only for testing purposes */
-        public ControlUnit(Dictionary<Variable, Fuzzifier> fuzzifiers)
-        {
-            this.fuzzifiers = fuzzifiers;
-        }
-
         public ControlUnit(Dictionary<Variable, Fuzzifier> fuzzifiers, InferenceEngine inferenceEngine, Defuzzifier defuzzifier)
         {
             this.fuzzifiers = fuzzifiers;

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-
 namespace FuzzyAPI
 {
     public class Triple<T, U, S>
