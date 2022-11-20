@@ -1,0 +1,6 @@
+{
+	"name": "matabal.fuzzycontrol.Samples",
+	"references": [
+		"matabal.fuzzycontrol.FuzzyControlAPI"
+	]
+}
