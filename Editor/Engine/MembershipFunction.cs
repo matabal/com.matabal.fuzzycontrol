@@ -34,12 +34,13 @@ namespace FuzzyControlEngine
             List<float> vals = new List<float>();
             if (!isA1Undefined)
                 vals.Add((value - lowerBound) / (center - lowerBound));
+            
+            vals.Add(1f);
+
             if (!isA2Undefined)
                 vals.Add((upperBound - value) / (upperBound - center));
 
-            if (vals.Count > 0)
-                return Math.Max(vals.Min(), 0f);
-            return 0f;
+            return Math.Max(vals.Min(), 0f);
         }
 
         public override float GetLimitedArea(float yLimit)
@@ -77,17 +78,20 @@ namespace FuzzyControlEngine
 
         public override float CalculateDegree(float value)
         {
+            
             bool isA1Undefined = Mathf.Approximately(lowerCenter - lowerBound, 0f);
             bool isA2Undefined = Mathf.Approximately(upperBound - upperCenter, 0f);
 
             List<float> vals = new List<float>();
-            
+
             if (!isA1Undefined)
                 vals.Add((value - lowerBound) / (lowerCenter - lowerBound));
+
             vals.Add(1f);
+
             if (!isA2Undefined)
                 vals.Add((upperBound - value) / (upperBound - upperCenter));
-
+            
             return Math.Max(vals.Min(), 0f);
         }
 

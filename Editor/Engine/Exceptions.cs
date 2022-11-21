@@ -6,8 +6,9 @@ namespace FuzzyControlEngine
     {
         public class InvalidFuzzyValueException : Exception
         {
-            public InvalidFuzzyValueException(float fuzzyValue)
-            :base("Value " + fuzzyValue.ToString() + " needs to be between 0 and 1 to be fuzzy.")
+            public InvalidFuzzyValueException(string descriptorName, float fuzzyValue)
+            :base("Value of '" + descriptorName + "' " + fuzzyValue.ToString() + " needs to be " +
+                 "between 0 and 1 to be fuzzy.")
             {}
         }
 

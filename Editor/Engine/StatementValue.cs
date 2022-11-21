@@ -18,7 +18,7 @@ namespace FuzzyControlEngine
         public Literal(Variable variable, Descriptor descriptor, float fuzzyValue)
         {
             if (fuzzyValue < 0 || fuzzyValue > 1)
-                throw new InvalidFuzzyValueException(fuzzyValue);
+                throw new InvalidFuzzyValueException(descriptor.name, fuzzyValue);
             this.variable = variable;
             this.descriptor = descriptor;
             this.fuzzyValue = fuzzyValue;
@@ -28,7 +28,7 @@ namespace FuzzyControlEngine
         public Literal(Descriptor descriptor, float fuzzyValue)
         {
             if (fuzzyValue < 0 || fuzzyValue > 1)
-                throw new InvalidFuzzyValueException(fuzzyValue);
+                throw new InvalidFuzzyValueException(descriptor.name, fuzzyValue);
             this.descriptor = descriptor;
             this.fuzzyValue = fuzzyValue;
             fuzzyValueAdded = true;
@@ -44,7 +44,7 @@ namespace FuzzyControlEngine
         public Literal(float fuzzyValue)
         {
             if (fuzzyValue < 0 || fuzzyValue > 1)
-                throw new InvalidFuzzyValueException(fuzzyValue);
+                throw new InvalidFuzzyValueException(descriptor.name, fuzzyValue);
             this.fuzzyValue = fuzzyValue;
             fuzzyValueAdded = true;
         }
