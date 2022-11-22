@@ -6,15 +6,13 @@ namespace FuzzyControlEngine
     {
         Variable outputVariable;
         Dictionary<string, FuzzySet> outputSets;
-        Normalizer normalizer;
 
-        public Defuzzifier(Variable outputVariable, FuzzySet[] outputSets, Normalizer normalizer)
+        public Defuzzifier(Variable outputVariable, FuzzySet[] outputSets)
         {
             this.outputVariable = outputVariable;
             this.outputSets = new Dictionary<string, FuzzySet>();
             foreach(FuzzySet outSet in outputSets)
                 this.outputSets.Add(outSet.descriptor.name, outSet);
-            this.normalizer = normalizer;
         }
 
         public CrispLiteral Defuzzify(Literal[] fuzzyValues)
@@ -36,7 +34,7 @@ namespace FuzzyControlEngine
             if (float.IsInfinity(result) || float.IsNaN(result))
                 result = 0f;
 
-            return new CrispLiteral(outputVariable, normalizer.Denormalize(result));
+            return new CrispLiteral(outputVariable, result);
         }
 
         private Literal[] CleanFuzzyValues(Literal[] fuzzyValues)

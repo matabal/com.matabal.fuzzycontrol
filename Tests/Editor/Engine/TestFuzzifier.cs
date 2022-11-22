@@ -17,14 +17,15 @@ public class TestFuzzifier
         new Descriptor("Good")
 
     };
-    
+
+    private static Normalizer normalizer = new Normalizer(0, 10);
     private static FuzzySet[] fuzzySets =
     {
-        new FuzzySet(new Triangular(0f, 0f, 0.5f), descriptors[0]),
-        new FuzzySet(new Triangular(0f, 0.5f, 1f), descriptors[1]),
-        new FuzzySet(new Triangular(0.5f, 1f, 1f), descriptors[2])
+        new FuzzySet(new Triangular(0f, 0f, 5f, normalizer), descriptors[0]),
+        new FuzzySet(new Triangular(0f, 5f, 10f, normalizer), descriptors[1]),
+        new FuzzySet(new Triangular(5f, 10f, 10f, normalizer), descriptors[2])
     };
-    private static Normalizer normalizer = new Normalizer(0, 10);
+    
     
 
     // A Test behaves as an ordinary method
@@ -32,7 +33,7 @@ public class TestFuzzifier
     public void SimpleValid()
     {
         // Use the Assert class to test conditions
-        Fuzzifier foodFuzzifier = new Fuzzifier(variable, fuzzySets, normalizer);
+        Fuzzifier foodFuzzifier = new Fuzzifier(variable, fuzzySets);
         object[,] inputOutputValues =
         {
             {new CrispLiteral(variable, 2f), new Literal[] 
@@ -75,7 +76,7 @@ public class TestFuzzifier
     public void VariableMismatchException()
     {
         Variable invalid = new Variable("service");
-        Fuzzifier foodFuzzifier = new Fuzzifier(variable, fuzzySets, normalizer);
+        Fuzzifier foodFuzzifier = new Fuzzifier(variable, fuzzySets);
         try
         {
             foodFuzzifier.Fuzzify(new CrispLiteral(invalid, 0f));

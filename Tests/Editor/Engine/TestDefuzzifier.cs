@@ -11,13 +11,14 @@ public class TestDefuzzifier
     [Test]
     public void TestSimpleDefuzzifier()
     {
+        Normalizer normalizer = new Normalizer(0f, 10f);
         Variable tip = new Variable("tip");
         Descriptor low = new Descriptor("low");
-        MembershipFunction lowFunc = new Triangular(0, 0.25f, 0.5f);
+        MembershipFunction lowFunc = new Triangular(0, 2.5f, 5f, normalizer);
         Descriptor medium = new Descriptor("medium");
-        MembershipFunction mediumFunc = new Triangular(0.25f, 0.5f, 0.75f);
+        MembershipFunction mediumFunc = new Triangular(2.5f, 5f, 7.5f, normalizer);
         Descriptor high = new Descriptor("high");
-        MembershipFunction highFunc = new Triangular(0.5f, 0.75f, 1f);
+        MembershipFunction highFunc = new Triangular(5f, 7.5f, 10f, normalizer);
 
         FuzzySet[] outputSets = new FuzzySet[]
         {
@@ -26,7 +27,7 @@ public class TestDefuzzifier
             new FuzzySet(highFunc, high)
         };
 
-        Defuzzifier defuzzifier = new Defuzzifier(tip, outputSets, new Normalizer(0, 10));
+        Defuzzifier defuzzifier = new Defuzzifier(tip, outputSets);
         Literal[] sampleInput = new Literal[]
         {
             new Literal(tip, low, 0f),

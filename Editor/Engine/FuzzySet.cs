@@ -12,10 +12,10 @@ namespace FuzzyControlEngine
             function = membershipFunction;
         }
 
-        public Literal GetDegreeOfMembership(CrispLiteral normalizedValue)
+        public Literal GetDegreeOfMembership(CrispLiteral crispValue)
         {
-            float degree = function.CalculateDegree(normalizedValue.value);
-            return new Literal(normalizedValue.variable, descriptor, degree);
+            float degree = function.CalculateDegree(crispValue.value);
+            return new Literal(crispValue.variable, descriptor, degree);
         }
     }
 }

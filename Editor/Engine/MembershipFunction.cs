@@ -18,16 +18,19 @@ namespace FuzzyControlEngine
         private float lowerBound;
         private float center;
         private float upperBound;
+        private Normalizer normalizer;
 
-        public Triangular(float lowerBound, float center, float upperBound)
+        public Triangular(float lowerBound, float center, float upperBound, Normalizer normalizer)
         {
-            this.lowerBound = lowerBound;
-            this.center = center;
-            this.upperBound = upperBound;
+            this.normalizer = normalizer;
+            this.lowerBound = normalizer.Normalize(lowerBound);
+            this.center = normalizer.Normalize(center);
+            this.upperBound = normalizer.Normalize(upperBound);
         }
 
         public override float CalculateDegree(float value)
         {
+            value = normalizer.Normalize(value);
             bool isA1Undefined = Mathf.Approximately(center - lowerBound, 0f);
             bool isA2Undefined = Mathf.Approximately(upperBound - center, 0f);
 
@@ -49,14 +52,14 @@ namespace FuzzyControlEngine
             float i2 = upperBound - yLimit * (upperBound - center);
             float ceiling = Math.Abs(i2 - i1);
             float floor = upperBound - lowerBound;
-            return ((ceiling + floor) /2)*yLimit;
+            return normalizer.Denormalize(((ceiling + floor) /2)*yLimit);
         }
 
         public override float GetCOA(float yLimit)
         {
             float i1 = yLimit * (center - lowerBound) + lowerBound;
             float i2 = upperBound - yLimit * (upperBound - center);
-            return (lowerBound + i1 + i2 + upperBound) / 4;
+            return normalizer.Denormalize((lowerBound + i1 + i2 + upperBound) / 4);
         }
 
     }
@@ -67,18 +70,20 @@ namespace FuzzyControlEngine
         private float lowerCenter;
         private float upperCenter;
         private float upperBound;
+        private Normalizer normalizer;
 
-        public Trapezoidal(float lowerBound, float lowerCenter, float upperCenter, float upperBound)
+        public Trapezoidal(float lowerBound, float lowerCenter, float upperCenter, float upperBound, Normalizer normalizer)
         {
-            this.lowerBound = lowerBound;
-            this.lowerCenter = lowerCenter;
-            this.upperCenter = upperCenter;
-            this.upperBound = upperBound;
+            this.normalizer = normalizer;
+            this.lowerBound = normalizer.Normalize(lowerBound);
+            this.lowerCenter = normalizer.Normalize(lowerCenter);
+            this.upperCenter = normalizer.Normalize(upperCenter);
+            this.upperBound = normalizer.Normalize(upperBound);
         }
 
         public override float CalculateDegree(float value)
         {
-            
+            value = normalizer.Normalize(value);
             bool isA1Undefined = Mathf.Approximately(lowerCenter - lowerBound, 0f);
             bool isA2Undefined = Mathf.Approximately(upperBound - upperCenter, 0f);
 
@@ -101,14 +106,14 @@ namespace FuzzyControlEngine
             float i2 = upperBound - yLimit * (upperBound - upperCenter);
             float ceiling = Math.Abs(i2 - i1);
             float floor = upperBound - lowerBound;
-            return ((ceiling + floor) / 2) * yLimit;
+            return normalizer.Denormalize(((ceiling + floor) / 2) * yLimit);
         }
 
         public override float GetCOA(float yLimit)
         {
             float i1 = yLimit * (lowerCenter - lowerBound) + lowerBound;
             float i2 = upperBound - yLimit * (upperBound - upperCenter);
-            return (lowerBound + i1 + i2 + upperBound) / 4;
+            return normalizer.Denormalize((lowerBound + i1 + i2 + upperBound) / 4);
         }
 
     }

@@ -6,10 +6,10 @@ using FuzzyControlAPI;
 public class Accelerate : MonoBehaviour
 {
     public float speed;
-    private const float maxSpeed = 12f;
+    private const float maxSpeed = 15f;
     public float accelerator;
     public float timer = 0f;
-    private const float timerTime = 6f;
+    private const float timerTime = 5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,19 +24,15 @@ public class Accelerate : MonoBehaviour
 
         builder.AddTriangularInputDescriptor("timer", "starting", 0f, 0f, 3f);
         builder.AddTriangularInputDescriptor("timer", "middle", 2f, 3f, 4f);
-        builder.AddTriangularInputDescriptor("timer", "ending", 4f, 6f, 6f);
+        builder.AddTriangularInputDescriptor("timer", "ending", 3f, 5f, 5f);
 
-        builder.AddTriangularOutputDescriptor("slow", 0f, 0f, 4f);
-        builder.AddTriangularOutputDescriptor("mid", 3f, 6f, 12f);
-        builder.AddTriangularOutputDescriptor("fast", 8f, 8f, 12f);
-
+        builder.AddTriangularOutputDescriptor("slow", -10f, 0f, 10f);
+        builder.AddTriangularOutputDescriptor("mid", 5f, 10f, 15f);
+        builder.AddTriangularOutputDescriptor("fast", 5f, 15f, 25f);
 
         string rule1 = "If accelerator is low or timer is starting then speed is slow;\n";
         string rule2 = "If accelerator is medium and timer is middle then speed is mid;\n";
         string rule3 = "If accelerator is high or timer is ending then speed is fast;\n";
-        /*string rule1 = "If (accelerator is low or accelerator is medium) and timer is starting then speed is slow;\n";
-        //string rule2 = "If accelerator is medium and timer is middle then speed is mid;\n";
-        string rule3 = "If accelerator is high and (timer is middle or timer is ending) then speed is fast;\n";*/
 
         string ruleStr = rule1 + rule2 + rule3;
         builder.rules = ruleStr;

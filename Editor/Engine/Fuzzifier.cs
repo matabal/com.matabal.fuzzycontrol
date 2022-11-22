@@ -6,13 +6,11 @@ namespace FuzzyControlEngine
     {
         private Variable inputVariable;
         private FuzzySet[] inputSets;
-        private Normalizer normalizer;
 
-        public Fuzzifier(Variable inputVariable, FuzzySet[] inputSets, Normalizer normalizer)
+        public Fuzzifier(Variable inputVariable, FuzzySet[] inputSets)
         {
             this.inputVariable = inputVariable;
             this.inputSets = inputSets;
-            this.normalizer = normalizer;
         }
 
         public Literal[] Fuzzify(CrispLiteral crispValue)
@@ -20,7 +18,6 @@ namespace FuzzyControlEngine
             if (!crispValue.variable.Equals(inputVariable))
                 throw new VariableMismatchException();
 
-            crispValue.value = normalizer.Normalize(crispValue.value);
             Literal[] literals = new Literal[inputSets.Length];
             int i = 0;
             foreach (FuzzySet inpSet in inputSets)

@@ -13,7 +13,7 @@ public class TestMembershipFunction
     public void TestTriangularDegree()
     {
         // Use the Assert class to test conditions
-        Triangular triangularMembFunc = new Triangular(0, 0.5f, 1f);
+        Triangular triangularMembFunc = new Triangular(0, 0.5f, 1f, new Normalizer(0f, 1f));
         float[,] inputOutputValues = {
             {0f, 0f},
             {0.25f, 0.5f},
@@ -35,7 +35,7 @@ public class TestMembershipFunction
     public void TestTriangularArea()
     {
         // Use the Assert class to test conditions
-        Triangular triangularMembFunc = new Triangular(0, 0.5f, 1f);
+        Triangular triangularMembFunc = new Triangular(0, 0.5f, 1f, new Normalizer(0f, 1f));
         float[,] inputOutputValues = {
             {0f, 0f},
             {0.25f, 0.21875f},
@@ -59,7 +59,7 @@ public class TestMembershipFunction
     public void TestTriangularCenterOfArea()
     {
         // Use the Assert class to test conditions
-        Triangular triangularMembFunc = new Triangular(0, 0.5f, 1f);
+        Triangular triangularMembFunc = new Triangular(0, 0.5f, 1f, new Normalizer(0f, 1f));
         float[,] inputOutputValues = {
             {0f, 0.5f},
             {0.25f, 0.5f},
@@ -82,7 +82,7 @@ public class TestMembershipFunction
     [Test]
     public void TestTrapezoidalDegree()
     {
-        Trapezoidal trapezoidalMembFunc = new Trapezoidal(0, 0.25f, 0.75f, 1f);
+        Trapezoidal trapezoidalMembFunc = new Trapezoidal(0, 0.25f, 0.75f, 1f, new Normalizer(0f, 1f));
         float[,] inputOutputValues = {
             {0f, 0f},
             {0.125f, 0.5f},
@@ -106,7 +106,7 @@ public class TestMembershipFunction
     public void TestTrapezoidalCenterOfArea()
     {
         // Use the Assert class to test conditions
-        Trapezoidal trapezoidalMembFunc = new Trapezoidal(0, 0.25f, 0.75f, 1f);
+        Trapezoidal trapezoidalMembFunc = new Trapezoidal(0, 0.25f, 0.75f, 1f, new Normalizer(0f, 1f));
         float[,] inputOutputValues = {
             {0f, 0.5f},
             {0.25f, 0.5f},
@@ -129,7 +129,7 @@ public class TestMembershipFunction
     [Test]
     public void TestTrapezoidalArea()
     {
-        Trapezoidal trapezoidalMembFunc = new Trapezoidal(0, 0.25f, 0.75f, 1f);
+        Trapezoidal trapezoidalMembFunc = new Trapezoidal(0, 0.25f, 0.75f, 1f, new Normalizer(0f, 1f));
         float[,] inputOutputValues = {
             {0f, 0f},
             {0.25f, 0.234375f},

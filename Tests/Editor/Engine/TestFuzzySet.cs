@@ -14,7 +14,7 @@ public class TestFuzzySet
         // Use the Assert class to test conditions
         Variable food = new Variable("food");
         Descriptor rancidDesc = new Descriptor("rancid");
-        FuzzySet rancid = new FuzzySet(new Triangular(0, 0.5f, 1f), rancidDesc);
+        FuzzySet rancid = new FuzzySet(new Triangular(0, 0.5f, 1f, new Normalizer(0, 1f)), rancidDesc);
         float[,] inputOutputValues = {
             {0f, 0f},
             {0.25f, 0.5f},

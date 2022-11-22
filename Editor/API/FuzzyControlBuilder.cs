@@ -96,9 +96,10 @@ namespace FuzzyControlAPI
             {
                 FuzzySet fuzzySet = new FuzzySet(
                     new Triangular(
-                        fuzzifierMap[variableName].second.Normalize(lowerBound),
-                        fuzzifierMap[variableName].second.Normalize(center),
-                        fuzzifierMap[variableName].second.Normalize(upperBound)
+                        lowerBound,
+                        center,
+                        upperBound,
+                        fuzzifierMap[variableName].second
                     ),
                     new Descriptor(descriptor)
                 );
@@ -121,10 +122,11 @@ namespace FuzzyControlAPI
             {
                 FuzzySet fuzzySet = new FuzzySet(
                     new Trapezoidal(
-                        fuzzifierMap[variableName].second.Normalize(lowerBound),
-                        fuzzifierMap[variableName].second.Normalize(lowerCenter),
-                        fuzzifierMap[variableName].second.Normalize(upperCenter),
-                        fuzzifierMap[variableName].second.Normalize(upperBound)
+                        lowerBound,
+                        lowerCenter,
+                        upperCenter,
+                        upperBound,
+                        fuzzifierMap[variableName].second
                     ),
                     new Descriptor(descriptor)
                 );
@@ -144,10 +146,7 @@ namespace FuzzyControlAPI
             if (fuzzifierMap.ContainsKey(variableName))
             {
                 FuzzySet fuzzySet = new FuzzySet(
-                    new Gaussian(
-                        fuzzifierMap[variableName].second.Normalize(mean),
-                        fuzzifierMap[variableName].second.Normalize(standardDeviation)
-                    ),
+                    new Gaussian(mean, standardDeviation),
                     new Descriptor(descriptor)
                 );
                 fuzzifierMap[variableName].first.Add(fuzzySet);
@@ -165,9 +164,10 @@ namespace FuzzyControlAPI
         {
             FuzzySet fuzzySet = new FuzzySet(
                 new Triangular(
-                    outputNormalizer.Normalize(lowerBound),
-                    outputNormalizer.Normalize(center),
-                    outputNormalizer.Normalize(upperBound)
+                    lowerBound,
+                    center,
+                    upperBound,
+                    outputNormalizer
                ),
                 new Descriptor(descriptor)
             );
@@ -184,10 +184,11 @@ namespace FuzzyControlAPI
         {
             FuzzySet fuzzySet = new FuzzySet(
                 new Trapezoidal(
-                    outputNormalizer.Normalize(lowerBound),
-                    outputNormalizer.Normalize(lowerCenter),
-                    outputNormalizer.Normalize(upperCenter),
-                    outputNormalizer.Normalize(upperBound)
+                    lowerBound,
+                    lowerCenter,
+                    upperCenter,
+                    upperBound,
+                    outputNormalizer
                ),
                 new Descriptor(descriptor)
             );
@@ -201,10 +202,7 @@ namespace FuzzyControlAPI
         )
         {
             FuzzySet fuzzySet = new FuzzySet(
-                new Gaussian(
-                    outputNormalizer.Normalize(mean),
-                    outputNormalizer.Normalize(standardDeviation)
-               ),
+                new Gaussian(mean, standardDeviation),
                 new Descriptor(descriptor)
             );
             defuzzifierSets.Add(fuzzySet);
@@ -219,8 +217,7 @@ namespace FuzzyControlAPI
                 {
                     Fuzzifier fuzzifier = new Fuzzifier(
                         t.second,
-                        fuzzifierMap[t.third].first.ToArray(),
-                        fuzzifierMap[t.third].second
+                        fuzzifierMap[t.third].first.ToArray()
                     );
                     fuzzifiers.Add(t.second, fuzzifier);
                 }
@@ -237,8 +234,7 @@ namespace FuzzyControlAPI
 
             return new Defuzzifier(
                 outputVariable.second,
-                defuzzifierSets.ToArray(),
-                outputNormalizer
+                defuzzifierSets.ToArray()
             );
         }
 
