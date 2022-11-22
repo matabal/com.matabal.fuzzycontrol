@@ -1,6 +1,8 @@
 {
 	"name": "matabal.fuzzycontrol.Samples",
-	"references": [
-		"matabal.fuzzycontrol.FuzzyControlAPI"
+	"references":[
+		"matabal.fuzzycontrol.FuzzyControlAPI",
+		"Unity.TextMeshPro"
+
 	]
 }
