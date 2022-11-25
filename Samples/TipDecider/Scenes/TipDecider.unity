@@ -216,7 +216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2037945471}
-  - component: {fileID: 2037945470}
+  - component: {fileID: 2037945472}
   m_Layer: 0
   m_Name: TipperObject
   m_TagString: Untagged
@@ -224,21 +224,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2037945470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2037945469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0e1ada776ba32b4a9744ba0fdcefc80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  food: 0
-  service: 0
-  tip: 0
 --- !u!4 &2037945471
 Transform:
   m_ObjectHideFlags: 0
@@ -254,3 +239,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2037945472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037945469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b3870906a3c4d489697ce70a9f1e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  food: 0
+  service: 0
+  tip: 0

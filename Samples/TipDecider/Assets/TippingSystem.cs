@@ -19,7 +19,7 @@ public class TippingSystem : MonoBehaviour
 
         builder.AddTrapezoidalInputDescriptor("food", "rancid", 0f, 0f, 2f, 4f);
         builder.AddTrapezoidalInputDescriptor("food", "fine", 2f, 4f, 6f, 8f);
-        builder.AddTrapezoidalInputDescriptor("food", "delicious", 6f, 8f, 1f, 1f);
+        builder.AddTrapezoidalInputDescriptor("food", "delicious", 6f, 8f, 10f, 10f);
 
         builder.AddTriangularInputDescriptor("service", "poor", 0f, 0f, 5f);
         builder.AddTriangularInputDescriptor("service", "good", 0f, 5f, 10f);
