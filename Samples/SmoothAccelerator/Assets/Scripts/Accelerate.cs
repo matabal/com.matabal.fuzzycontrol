@@ -31,9 +31,6 @@ public class Accelerate : MonoBehaviour
     {
         float push = Input.GetAxis("Vertical");
 
-        if (push > 1)
-            Debug.Log(push);
-
         if (push > 0)
             accelerator = push;
         else
@@ -55,6 +52,7 @@ public class Accelerate : MonoBehaviour
             else
                 timer = 0f;
         }
+
     }
 
     private int ScaleSpeed(float speed)

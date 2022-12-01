@@ -26,7 +26,7 @@ public class TippingSystem : MonoBehaviour
         builder.AddTriangularInputDescriptor("service", "excellent", 5f, 10f, 10f);
 
         builder.AddTriangularOutputDescriptor("low", 0f, 5f, 15f);
-        builder.AddTriangularOutputDescriptor("average", 5f, 15f, 25f);
+        builder.AddTriangularOutputDescriptor("average", 5f, 15f, 30f);
         builder.AddTriangularOutputDescriptor("high", 15f, 25f, 30f);
 
         string rule1 = "If food is rancid  or service is poor then tip is low;\n";
